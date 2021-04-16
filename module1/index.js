@@ -32,13 +32,32 @@
 // fetch text
 //*********************************************************** */
 
-async function catchText() {
-  const response = await fetch("lorem.txt");
-  const text = await response.text();
+// async function catchText() {
+//   const response = await fetch("lorem.txt");
+//   const text = await response.text();
 
-  document.getElementById("parag").innerText = text;
+//   document.getElementById("parag").innerText = text;
+// }
+
+// catchText().catch((error) => {
+//   console.log(error);
+// });
+
+// fetch array of imgs
+//*********************************************************** */
+
+async function catchImgs() {
+  const imgs = ["github.jpeg", "git.jpeg", "netlify.jpeg"];
+  for (let img of imgs) {
+    const response = await fetch("./img/" + img);
+    const blob = await response.blob();
+    const image = document.createElement("img");
+    image.src = URL.createObjectURL(blob);
+    document.body.append(image);
+  }
+
+  //   console.log(array);
+  //   document.getElementById("parag").innerText = text;
 }
 
-catchText().catch((error) => {
-  console.log(error);
-});
+catchImgs();
