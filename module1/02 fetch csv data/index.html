@@ -5,23 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
 </head>
 <body>
+
+    <canvas id="chart" width="700" height="300"></canvas>
     
     <script>
+
+    createChart()
+
+    async function createChart(){
+        const data = await getDtat();
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.years,
+                datasets: [{
+                    label: 'global temperature',
+                    data: data.temps,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    }
+
         async function getDtat(){
             const response = await fetch('ZonAnn.Ts+dSST.csv');
             const data =  await response.text();
             const table = data.split('\n').slice(1);
+            const years = [];
+            const temps = [];
 
             table.forEach(row => {
                 const cols = row.split(',');
-                const  year = cols[0]
-                const  temp = cols[1]
-
+                const  year = cols[0];
+                years.push(year)
+                const  temp = cols[1];
+                temps.push(parseFloat(temp))
+                
                 console.log(year, temp);
             });
-        }
+
+            return {temps, years}
+        }       
         getDtat();
     </script>
 </body>
