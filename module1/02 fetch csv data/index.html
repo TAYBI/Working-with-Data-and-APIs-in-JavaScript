@@ -17,6 +17,7 @@
 
     async function createChart(){
         const data = await getDtat();
+       
         var ctx = document.getElementById('chart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -24,24 +25,36 @@
                 labels: data.years,
                 datasets: [{
                     label: 'global temperature',
-                    data: data.temps,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                    ],
+                    data:  data.temps,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor:' rgba(255, 99, 132, 1)',
                     borderWidth: 1,
-                }]
+                },
+                {
+                    label: 'global temperature',
+                    data:  data.NHems,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'global temperature',
+                    data:  data.SHems,
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1,
+                },
+            
+            ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + '°';
+                            }
+                        }
                     }
                 }
             }
@@ -55,18 +68,25 @@
             const table = data.split('\n').slice(1);
             const years = [];
             const temps = [];
+            const NHems = [];
+            const SHems = [];
+
 
             table.forEach(row => {
                 const cols = row.split(',');
                 const  year = cols[0];
                 years.push(year)
                 const  temp = cols[1];
-                temps.push(parseFloat(temp))
+                temps.push(parseFloat(temp) * 14)
+                const  NHem = cols[2];
+                NHems.push(parseFloat(NHem) * 14)
+                const  SHem = cols[3];
+                SHems.push(parseFloat(SHem) * 14);    
                 
-                console.log(year, temp);
+                console.log(year, temp, NHem, SHem);
             });
 
-            return {temps, years}
+            return {temps, years, NHems, SHems}
         }       
         getDtat();
     </script>
