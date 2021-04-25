@@ -29,19 +29,14 @@
     <script>
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position);
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-
-          const tileLayer_URL =
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
           const attribution =
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
           const map = L.map("map").setView([lat, lon], 10);
           const marker = L.marker([lat, lon]).addTo(map);
 
-          L.tileLayer(tileLayer_URL, {
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution,
           }).addTo(map);
 
