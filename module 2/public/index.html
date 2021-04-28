@@ -35,14 +35,14 @@
         navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          const attribution =
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-          const map = L.map("map").setView([lat, lon], 10);
-          const marker = L.marker([lat, lon]).addTo(map);
+          // const attribution =
+          //   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+          // const map = L.map("map").setView([lat, lon], 10);
+          // const marker = L.marker([lat, lon]).addTo(map);
 
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution,
-          }).addTo(map);
+          // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          //   attribution,
+          // }).addTo(map);
 
           document.getElementById("lat").innerText = lat;
           document.getElementById("lon").innerText = lon;
