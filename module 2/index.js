@@ -9,4 +9,8 @@ app.post("/api", (req, res) => {
   // req :  everything
   // res: send things back to the client
   console.log(req.body);
+  res.json({
+    status: "success",
+    data: req.body,
+  });
 });

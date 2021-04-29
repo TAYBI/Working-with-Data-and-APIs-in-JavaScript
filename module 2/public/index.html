@@ -32,7 +32,7 @@
   <body>
     <script>
       if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           document.getElementById("lat").innerText = lat;
@@ -47,7 +47,10 @@
             },
             body: JSON.stringify(data),
           };
-          fetch("/api", options);
+
+          const response = await fetch("/api", options);
+          const apiJsonData = await response.json();
+          console.log(apiJsonData);
         });
       } else console.log("geolocation not availabel");
     </script>
