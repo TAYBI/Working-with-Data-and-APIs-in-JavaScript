@@ -32,7 +32,7 @@
   <body>
     <script>
       if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
+        navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           document.getElementById("lat").innerText = lat;
@@ -48,15 +48,20 @@
             body: JSON.stringify(data),
           };
 
-          const response = await fetch("/api", options);
-          const apiJsonData = await response.json();
-          console.log(apiJsonData);
+          document
+            .getElementById("submit")
+            .addEventListener("click", async () => {
+              const response = await fetch("/api", options);
+              const apiJsonData = await response.json();
+              console.log(apiJsonData);
+            });
         });
       } else console.log("geolocation not availabel");
     </script>
     <h1>Data Selfi App -- Hello</h1>
     <p>latitude: <span id="lat"></span>&deg;</p>
     <p>longitude: <span id="lon"></span>&deg;</p>
-    <div id="map"></div>
+
+    <button id="submit">Submit</button>
   </body>
 </html>
