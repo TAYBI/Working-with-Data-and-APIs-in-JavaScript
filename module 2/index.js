@@ -17,7 +17,7 @@ app.post("/api", (req, res) => {
     if (err) throw err;
   });
 
-  const tempData = fs.readFileSync(fileName, "utf8").split("\n").splice(1);
+  let tempData = fs.readFileSync(fileName, "utf8").split("\n").splice(1);
 
   tempData.forEach((element) => {
     const lat = element.split(",")[0];
@@ -29,4 +29,6 @@ app.post("/api", (req, res) => {
     status: "success",
     data,
   });
+
+  data.length = 0;
 });
