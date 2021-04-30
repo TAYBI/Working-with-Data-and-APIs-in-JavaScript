@@ -35,10 +35,12 @@
         navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
+          const name = document.getElementById("name");
+
           document.getElementById("lat").innerText = lat;
           document.getElementById("lon").innerText = lon;
 
-          const data = { lat, lon };
+          const data = { userName: name.value, lat, lon };
 
           options = {
             method: "POST",
@@ -61,6 +63,12 @@
     <h1>Data Selfi App -- Hello</h1>
     <p>latitude: <span id="lat"></span>&deg;</p>
     <p>longitude: <span id="lon"></span>&deg;</p>
+
+    <label for="name">Type your name:</label>
+    <br />
+    <input type="text" id="name" />
+    <br />
+    <br />
 
     <button id="submit">Submit</button>
   </body>
